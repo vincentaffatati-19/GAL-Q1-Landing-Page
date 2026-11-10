@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0B245F">
   <meta name="description" content="Golf Analytics Lab — Edition 001: The Golf Ball. Be among the first to explore the intersection of golf equipment, history, art, and analysis.">
-  <title>Edition 001: The Golf Ball | Golf Analytics Lab</title>
+  <title>Edition 001: The Golf Ball | Golf Analytics Lab — Review v5</title>
   <style>
     :root { --navy:#0B245F; --orange:#FF5A1F; --cream:#fff9ed; --muted:#bec8db; }
     * { box-sizing:border-box; }
     html { background:var(--navy); }
     body { margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--cream); }
     .page { min-height:100svh; display:grid; grid-template-columns:minmax(0, 1.06fr) minmax(355px, .94fr); background:var(--navy); }
-    .art { margin:0; min-width:0; position:relative; overflow:hidden; display:grid; place-items:center; background:#c72d0a; }
-    .art img { display:block; width:100%; height:100%; object-fit:cover; aspect-ratio:1; }
+    .art { margin:0; min-width:0; min-height:100svh; position:relative; overflow:hidden; display:grid; place-items:center; background:#c72d0a; }
+    /* Preserve the entire square A1.1 artwork: never crop or stretch it. */
+    .art img { display:block; width:100%; height:auto; max-height:100svh; object-fit:contain; aspect-ratio:1 / 1; }
     .editorial { min-width:0; min-height:100svh; padding:clamp(30px,5.5vw,94px); display:flex; flex-direction:column; justify-content:space-between; gap:55px; }
     .issue { display:flex; align-items:center; gap:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.24em; font-size:.71rem; font-weight:700; }
     .issue:before { content:""; width:28px; height:2px; background:var(--orange); }
@@ -26,12 +27,36 @@
     .cta:hover { background:#fff9ed; border-color:#fff9ed; color:var(--navy); transform:translateY(-2px); }
     .cta:focus-visible { outline:3px solid white; outline-offset:5px; }
     .cta svg { width:18px; height:18px; flex-shrink:0; }
+    .signup-form { max-width:590px; margin-top:10px; }
+    .form-label { display:block; margin-bottom:12px; font-size:.9rem; font-weight:700; letter-spacing:.07em; }
+    .signup-row { display:flex; gap:10px; }
+    .signup-row input[type=email] { width:100%; min-width:0; padding:15px 16px; border:2px solid #c5cde0; background:#fff; color:#11254b; font:1rem Arial,sans-serif; }
+    .signup-row input[type=email]:focus-visible { outline:3px solid var(--orange); outline-offset:2px; }
+    .signup-row .cta { flex-shrink:0; cursor:pointer; min-height:58px; white-space:nowrap; }
+    .signup-row .cta:disabled { opacity:.7; cursor:wait; }
+    .consent-label { display:flex; align-items:flex-start; gap:10px; margin-top:17px; font-size:.82rem; line-height:1.6; color:#d8dfed; cursor:pointer; }
+    .consent-label input { flex-shrink:0; margin-top:3px; width:18px; height:18px; accent-color:var(--orange); }
+    .signup-status { min-height:1.3em; font-size:.92rem; line-height:1.4; font-weight:bold; }
+    .signup-status.error { color:#ffb39a; }
+    .signup-status.success { color:#c5f3d2; }
+    .trap { position:absolute; left:-9999px; height:0; width:0; overflow:hidden; }
+    @media(max-width:520px) { .signup-row { flex-direction:column; } .signup-row .cta { width:100%; } }
+    .overlay[hidden] { display:none; }
+    .overlay { position:fixed; inset:0; z-index:30; background:rgba(5,15,39,.82); display:grid; place-items:center; padding:20px; }
+    .dialog { width:min(100%,480px); background:#fff9ed; color:#0B245F; padding:clamp(24px,4vw,40px); box-shadow:0 30px 80px rgba(0,0,0,.3); position:relative; }
+    .dialog h2 { font-family:Georgia,serif; font-size:2rem; font-weight:400; margin:0 28px 12px 0; }
+    .dialog p { line-height:1.5; }
+    .choice { width:100%; display:flex; align-items:center; justify-content:space-between; padding:14px 16px; margin:10px 0; text-decoration:none; font:700 .9rem Arial,sans-serif; border:1px solid #0B245F; background:#0B245F; color:white; cursor:pointer; }
+    .choice.secondary { background:transparent; color:#0B245F; }
+    .choice:hover { outline:2px solid #FF5A1F; outline-offset:2px; }
+    .close { position:absolute; top:16px; right:18px; border:0; background:transparent; color:#0B245F; font-size:1.8rem; cursor:pointer; }
+    .notice { min-height:1.4em; color:#0B245F; font-size:.85rem; }
     .hint { color:var(--muted); margin:15px 0 0; font-size:.82rem; line-height:1.45; }
     footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:15px; font-size:.76rem; color:var(--muted); letter-spacing:.075em; text-transform:uppercase; }
     @media(max-width:920px) {
       .page { display:block; }
-      .art { background:var(--navy); }
-      .art img { width:100%; height:auto; object-fit:contain; }
+      .art { background:#c72d0a; min-height:0; }
+      .art img { width:100%; height:auto; max-height:none; object-fit:contain; }
       .editorial { min-height:auto; padding:clamp(30px,6vw,66px); gap:45px; }
       .content { max-width:680px; }
       h1 { font-size:clamp(3.7rem,10vw,7rem); }
@@ -56,15 +81,59 @@
         <p class="eyebrow">Coming soon · The first edition</p>
         <h1 id="edition-title">The Golf <span>Ball.</span></h1>
         <p class="intro">An everyday object. An extraordinary story. Discover the golf ball through art, history, and a new kind of equipment intelligence.</p>
-        <a class="cta" href="mailto:subscribe@golfanalyticslab.com?subject=GAL%20Edition%20001%20%E2%80%94%20Early%20Access&body=Hello%20Golf%20Analytics%20Lab%2C%0A%0AI%27d%20like%20early%20access%20to%20your%20first%20edition.%0A%0AThank%20you!" aria-label="Sign up for early access to the first edition by email">
-          Get Early Access
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <p class="hint">Select the button to request your invitation by email.</p>
+        <form id="early-access-form" class="signup-form" novalidate>
+          <label for="signup-email" class="form-label">Be first to explore Edition 001</label>
+          <div class="signup-row">
+            <input id="signup-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="Your email address" aria-describedby="signup-status" required>
+            <button class="cta" id="signup-submit" type="submit">Get Early Access <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="trap" aria-hidden="true"><label for="signup-website">Leave blank</label><input id="signup-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <label class="consent-label"><input id="signup-consent" type="checkbox" checked required> <span>Send me early-access news and updates about Golf Analytics Lab Edition 001. I can unsubscribe at any time.</span></label>
+          <p id="signup-status" class="signup-status" aria-live="polite" role="status"></p>
+        </form>
+        <p class="hint">No account required. We will only use your email for GAL updates you've requested.</p>
       </div>
       <footer><span>Art. History. Intelligence.</span><span>© <span id="year">2026</span> Golf Analytics Lab</span></footer>
     </section>
   </main>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const form = document.getElementById('early-access-form');
+    const submit = document.getElementById('signup-submit');
+    const email = document.getElementById('signup-email');
+    const consent = document.getElementById('signup-consent');
+    const status = document.getElementById('signup-status');
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      status.className = 'signup-status';
+      if (!email.validity.valid || !email.value.trim()) {
+        status.textContent = 'Please enter a valid email address.';
+        status.classList.add('error'); email.focus(); return;
+      }
+      if (!consent.checked) {
+        status.textContent = 'Please confirm you want to receive early-access updates.';
+        status.classList.add('error'); consent.focus(); return;
+      }
+      submit.disabled = true; submit.textContent = 'Signing up…';
+      status.textContent = '';
+      try {
+        const response = await fetch('https://ylrxwtbzavhxxpoqqmho.supabase.co/functions/v1/gal-edition-001-signup', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify({email: email.value.trim(), consent: consent.checked, website: document.getElementById('signup-website').value})
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || 'We could not complete your signup.');
+        status.textContent = "You're on the list! Thank you for signing up for Edition 001.";
+        status.classList.add('success');
+        form.reset();
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Signup unavailable. Please try again.';
+        status.classList.add('error');
+      } finally {
+        submit.disabled = false; submit.innerHTML = 'Get Early Access <span aria-hidden="true">→</span>';
+      }
+    });
+  </script>
 </body>
 </html>
