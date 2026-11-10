@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B245F">
+  <meta name="description" content="Golf Analytics Lab — Edition 001: The Golf Ball. Be among the first to explore the intersection of golf equipment, history, art, and analysis.">
+  <title>Edition 001: The Golf Ball | Golf Analytics Lab</title>
+  <style>
+    :root { --navy:#0B245F; --orange:#FF5A1F; --cream:#fff9ed; --muted:#bec8db; }
+    * { box-sizing:border-box; }
+    html { background:var(--navy); }
+    body { margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--cream); }
+    .page { min-height:100svh; display:grid; grid-template-columns:minmax(0, 1.06fr) minmax(355px, .94fr); background:var(--navy); }
+    .art { margin:0; min-width:0; position:relative; overflow:hidden; display:grid; place-items:center; background:#c72d0a; }
+    .art img { display:block; width:100%; height:100%; object-fit:cover; aspect-ratio:1; }
+    .editorial { min-width:0; min-height:100svh; padding:clamp(30px,5.5vw,94px); display:flex; flex-direction:column; justify-content:space-between; gap:55px; }
+    .issue { display:flex; align-items:center; gap:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.24em; font-size:.71rem; font-weight:700; }
+    .issue:before { content:""; width:28px; height:2px; background:var(--orange); }
+    .content { max-width:570px; }
+    .eyebrow { color:var(--orange); font-size:.82rem; font-weight:700; letter-spacing:.25em; text-transform:uppercase; margin:0 0 22px; }
+    h1 { font-family:Georgia,'Times New Roman',serif; font-size:clamp(4rem,7vw,8.7rem); font-weight:400; line-height:.94; letter-spacing:-.055em; margin:0 0 34px; }
+    h1 span { display:block; font-style:italic; color:#ffba67; }
+    .intro { color:#d8dfed; font-size:clamp(1.05rem,1.4vw,1.24rem); line-height:1.68; max-width:26rem; margin:0 0 34px; }
+    .cta { display:inline-flex; align-items:center; justify-content:center; gap:20px; min-height:60px; padding:17px 25px; background:var(--orange); color:white; text-decoration:none; text-transform:uppercase; letter-spacing:.1em; font-size:.84rem; font-weight:800; border:2px solid var(--orange); transition:background .2s, color .2s, transform .2s; }
+    .cta:hover { background:#fff9ed; border-color:#fff9ed; color:var(--navy); transform:translateY(-2px); }
+    .cta:focus-visible { outline:3px solid white; outline-offset:5px; }
+    .cta svg { width:18px; height:18px; flex-shrink:0; }
+    .hint { color:var(--muted); margin:15px 0 0; font-size:.82rem; line-height:1.45; }
+    footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:15px; font-size:.76rem; color:var(--muted); letter-spacing:.075em; text-transform:uppercase; }
+    @media(max-width:920px) {
+      .page { display:block; }
+      .art { background:var(--navy); }
+      .art img { width:100%; height:auto; object-fit:contain; }
+      .editorial { min-height:auto; padding:clamp(30px,6vw,66px); gap:45px; }
+      .content { max-width:680px; }
+      h1 { font-size:clamp(3.7rem,10vw,7rem); }
+    }
+    @media(max-width:520px) {
+      .editorial { padding:32px 24px 28px; gap:40px; }
+      h1 { font-size:clamp(3.6rem,15vw,5rem); }
+      .cta { display:flex; width:100%; }
+      .issue { font-size:.65rem; }
+    }
+    @media(prefers-reduced-motion:reduce) { .cta { transition:none; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <figure class="art">
+      <img src="gal-a1-1.png" alt="American modernist painting of a single golf ball against bold red, gold, and blue, featuring the Golf Analytics Lab logo in the upper-left corner" width="1254" height="1254" fetchpriority="high">
+    </figure>
+    <section class="editorial" aria-labelledby="edition-title">
+      <div class="issue">Golf Analytics Lab <span aria-hidden="true">/</span> Issue No. 001</div>
+      <div class="content">
+        <p class="eyebrow">Coming soon · The first edition</p>
+        <h1 id="edition-title">The Golf <span>Ball.</span></h1>
+        <p class="intro">An everyday object. An extraordinary story. Discover the golf ball through art, history, and a new kind of equipment intelligence.</p>
+        <a class="cta" href="mailto:subscribe@golfanalyticslab.com?subject=GAL%20Edition%20001%20%E2%80%94%20Early%20Access&body=Hello%20Golf%20Analytics%20Lab%2C%0A%0AI%27d%20like%20early%20access%20to%20your%20first%20edition.%0A%0AThank%20you!" aria-label="Sign up for early access to the first edition by email">
+          Get Early Access
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="hint">Select the button to request your invitation by email.</p>
+      </div>
+      <footer><span>Art. History. Intelligence.</span><span>© <span id="year">2026</span> Golf Analytics Lab</span></footer>
+    </section>
+  </main>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
